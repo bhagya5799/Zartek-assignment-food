@@ -1,0 +1,97 @@
+.circle-icon {
+  border: 2px solid green;
+  height: 15px;
+  width: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.food-card {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid rgb(167, 162, 162);
+  align-items: center;
+}
+.card-1 {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-family: serif;
+}
+.circle-red {
+  border: 2px solid red;
+  height: 15px;
+  width: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.circle-red > span {
+  background-color: red;
+  padding: 5px 6px;
+  border-radius: 50%;
+}
+.circle-icon > span {
+  background-color: green;
+  padding: 5px 6px;
+  border-radius: 50%;
+}
+.btn-card {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: green;
+  border-radius: 30px;
+  width: 150px;
+  height: 2.5rem;
+  margin-bottom: 2px;
+  color: white;
+}
+.btn-card > button {
+  background-color: transparent;
+  color: white;
+  font-weight: bold;
+  border-width: 0;
+  font-size: 22px;
+}
+.card-2 {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+.card-2 > p {
+  font-size: 14px;
+  font-weight: bold;
+  color: rgb(85, 84, 84);
+}
+.card-2>img{
+  height: 100px;
+  width: 100px;
+  background-size: cover;
+
+  
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: rgb(106, 104, 104);
+}
+.card > p {
+  margin-top: 1px;
+}
+.err {
+  color: red;
+}
+
+.card > h4 {
+  margin-top: 10px;
+  margin-bottom: 4px;
+}
+.card > .tag {
+  font-weight: bold;
+}
+.card > .descript {
+  color: gray;
+}
+
