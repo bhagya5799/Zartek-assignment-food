@@ -90,7 +90,7 @@ const myOrders= (details,count) =>{
                     <span><i><AiOutlineArrowLeft /></i></span>
                     <h4>{restaurantName}</h4>
                     <div className='store-div'>
-                        <p>My Orders</p>
+                        <p onClick={getMyOrders} >My Orders</p>
                         <span className='add-item-icon'><MdOutlineLocalGroceryStore /><i>{cartItems}</i></span>
                     </div>
                 </nav>
