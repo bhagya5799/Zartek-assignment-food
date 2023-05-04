@@ -7,9 +7,14 @@ import FromHouse from '../FromHouse'
 import Sea from '../Sea'
 import Biryani from '../Biryani'
 import FastFood from '../FastFood'
+import Orders from '../Orders'
 import './index.css'
+import { useNavigate } from "react-router-dom";
+// import { tab } from '@testing-library/user-event/dist/tab'
 
-const Home = () => {
+const Home = (props) => {
+    const {order1,setOrders1}=props
+    const navigate = useNavigate();
     const [foodData, setFoodData] = useState([])
     const [restaurantName, setRestaurantName] = useState('')
     const [tableMenu, setTableMenu] = useState([])
@@ -20,21 +25,25 @@ const Home = () => {
     const [biryani, setBiriyani] = useState([])
     const [fastFood, setFastFood] = useState([])
     const [activeTab, setActiveTab] = useState(tableMenu[0]?.menu_category)
-    const [cartItems, setCartItems] = useState([])
-    const addToCart = (item) =>{
-        setCartItems([...cartItems, item])
+    const [cartItems, setCartItems] = useState(0)
+    const [activeTabId, setActiveTabId] = useState(tableMenu[0]?.menu_category_id)
+    const [orders,setOrders]=useState([])
+    
+
+    const addToCart = (item) => {
+        setCartItems(cartItems+item)
     }
 
-    const removeFromCart = () =>{
+    const removeFromCart = () => {
         let TempCartItems = [...cartItems]
         TempCartItems.splice(0, 1)
         setCartItems(TempCartItems)
     }
 
     useEffect(() => {
-    
         getFoodData()
     }, [])
+    // console.log('cart')
 
     useEffect(() => {
         setRestaurantName(foodData?.restaurant_name)
@@ -53,83 +62,95 @@ const Home = () => {
         setFoodData(data[0])
         setTableMenu(data[0].table_menu_list)
     }
+
+const myOrders= (details,count) =>{
+    setOrders([...orders,{details:details,count:count}])
+    setOrders1([...order1,{details:details,count:count}])
+}
+    const getMyOrders =  () => {
+        navigate("/orders");
+    }
    
+   
+// console.log(orders,'ord2345')
     return (
         <div className='home'>
             <div className='Header'>
                 <nav>
                     <h4>{restaurantName}</h4>
                     <div className='store-div'>
-                        <p>My Orders</p>
-                        <span className='add-item-icon'><MdOutlineLocalGroceryStore /><i>{cartItems?.length}</i></span>
-                    </div>
-                </nav>
-               
-            </div>
-            <div className='Mobile-view'>
-                <nav>
-                    <span><i><AiOutlineArrowLeft/></i></span>
-                    <h4>{restaurantName}</h4>
-                    <div className='store-div'>
-                        <p>My Orders</p>
-                        <span className='add-item-icon'><MdOutlineLocalGroceryStore /><i>{cartItems?.length}</i></span>
+                        <p onClick={getMyOrders} >My Orders</p>
+                        <span className='add-item-icon'><MdOutlineLocalGroceryStore /><i>{cartItems}</i></span>
                     </div>
                 </nav>
 
             </div>
+            <div className='Mobile-view'>
+                <nav>
+                    <span><i><AiOutlineArrowLeft /></i></span>
+                    <h4>{restaurantName}</h4>
+                    <div className='store-div'>
+                        <p>My Orders</p>
+                        <span className='add-item-icon'><MdOutlineLocalGroceryStore /><i>{cartItems}</i></span>
+                    </div>
+                </nav>
+            </div>
+
             <div className='home-body'>
                 <ul>
                     {tableMenu.map((each) => (
-                        <li onClick={() => (setActiveTab(each?.menu_category))} className='active'>{each?.menu_category}</li>
+                        <li key={each.menu_category_id} onClick={() => (setActiveTab(each.menu_category), setActiveTabId(each.menu_category_id))} className={activeTabId === each.menu_category_id ? 'active' : 'not-active'}>
+                            {each.menu_category}</li>
                     ))}
                 </ul>
 
                 {activeTab === undefined && soups?.map((each) => {
                     return (
-                        <FoodItemCard details={each} addToCart={addToCart} removeFromCart={removeFromCart}/>
+                        <FoodItemCard key={each.dish_id} details={each} addToCart={addToCart} removeFromCart={removeFromCart} myOrders={myOrders}/>
                     )
                 }
-                ) }
+                )}
                 {activeTab === 'Salads and Soup' && soups?.length > 0 ? soups.map((each) => {
                     return (
-                        <FoodItemCard details={each} addToCart={addToCart} removeFromCart={removeFromCart} />
+                        <FoodItemCard key={each.dish_id} details={each} addToCart={addToCart} removeFromCart={removeFromCart} myOrders={myOrders}/>
                     )
                 }
                 ) : null}
 
                 {activeTab === 'From The Barnyard' && barnyard?.length > 0 ? barnyard?.map((each) => {
                     return (
-                        <Barnyard details={each} addToCart={addToCart} removeFromCart={removeFromCart} />
+                        <Barnyard key={each.dish_id} details={each} addToCart={addToCart} removeFromCart={removeFromCart} myOrders={myOrders} />
                     )
                 }
                 ) : null}
                 {activeTab === 'From the Hen House' && fromHouse?.length > 0 ? fromHouse.map((each) => {
                     return (
-                        <FromHouse details={each} addToCart={addToCart} removeFromCart={removeFromCart} />
+                        <FromHouse key={each.dish_id} details={each} addToCart={addToCart} removeFromCart={removeFromCart} myOrders={myOrders} />
                     )
                 }
                 ) : null}
                 {activeTab === 'Fresh From The Sea' && sea?.length > 0 ? sea.map((each) => {
                     return (
-                        <Sea details={each} addToCart={addToCart} removeFromCart={removeFromCart} />
+                        <Sea key={each.dish_id} details={each} addToCart={addToCart} removeFromCart={removeFromCart} myOrders={myOrders} />
                     )
                 }
                 ) : null}
                 {activeTab === 'Biryani' && biryani?.length > 0 ? biryani.map((each) => {
                     return (
-                        <Biryani details={each} addToCart={addToCart} removeFromCart={removeFromCart} />
+                        <Biryani key={each.dish_id} details={each} addToCart={addToCart} removeFromCart={removeFromCart} myOrders={myOrders} />
                     )
                 }
                 ) : null}
                 {activeTab === 'Fast Food' && fastFood?.length > 0 ? fastFood.map((each) => {
                     return (
-                        <FastFood details={each} addToCart={addToCart} removeFromCart={removeFromCart} />
+                        <FastFood key={each.dish_id} details={each} addToCart={addToCart} removeFromCart={removeFromCart} myOrders={myOrders} />
                     )
                 }
                 ) : null}
             </div>
+            
         </div>
-       
+
     )
 }
 export default Home

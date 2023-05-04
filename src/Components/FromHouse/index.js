@@ -6,13 +6,17 @@ const FromHouse = (props) => {
     const [count, setCount] = useState(0)
     const Increase = () => {
         setCount(count => count + 1)
-        addToCart(details)
+
     }
     const decrease = () => {
-        if (count > 1) {
+        if (count > 0) {
             setCount(count => count - 1)
         }
-        removeFromCart()
+    }
+    const addCart = () => {
+        if (count >= 1) {
+            addToCart(count)
+        }
     }
 
     return (
@@ -29,6 +33,7 @@ const FromHouse = (props) => {
                         <button onClick={() => Increase(details)}>+</button>
                     </div>
                     {details?.dish_Availability ? (<p> </p>) : (<p className='err'>Not Available</p>)}
+                    {details?.dish_Availability ? <button onClick={() => addCart()} className='add-btn'>Add to Cart</button> : ''}
                 </div>
             </div>
             <div className='card-2'>

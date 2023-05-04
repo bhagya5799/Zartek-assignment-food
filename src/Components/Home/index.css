@@ -94,3 +94,15 @@ li {
     width: 100%;
   }
 }
+
+.active {
+  color: brown;
+  /* border-bottom: 3px solid brown; */
+}
+
+.not-active {
+  color: rgb(134, 130, 130);
+}
+.store-div>p{
+  cursor: pointer;
+}

@@ -1,18 +1,24 @@
 import React from 'react'
 import { useState } from 'react';
-
+import './index.css'
 const Biryani = (props) => {
-    const { details, addToCart, removeFromCart } = props;
+    const { details, addToCart, removeFromCart, myOrders } = props;
     const [count, setCount] = useState(0)
     const Increase = () => {
-        setCount(count => count + 1)
-        addToCart(details)
+        setCount(count + 1)
     }
     const decrease = () => {
-        if (count > 1) {
-            setCount(count => count - 1)
+        if (count > 0) {
+            setCount(count - 1)
         }
-        removeFromCart()
+    }
+    const addCart = () => {
+        if (count >= 1) {
+            addToCart(count)
+        }
+    }
+    const AddOrders = () => {
+        myOrders(details, count)
     }
 
     return (
@@ -29,6 +35,7 @@ const Biryani = (props) => {
                         <button onClick={() => Increase(details)}>+</button>
                     </div>
                     {details?.dish_Availability ? ('') : (<p className='err'>Not Available</p>)}
+                    {details?.dish_Availability ? <button onClick={() => (addCart(), AddOrders())} className='add-btn-biryani'>Add to Cart</button> : ''}
                 </div>
             </div>
             <div className='card-2'>

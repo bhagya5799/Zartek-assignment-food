@@ -2,9 +2,8 @@ import React from 'react'
 import { useState } from 'react';
 
 const Sea = (props) => {
-    const { details } = props;
+    const { details, addToCart, myOrders } = props;
     console.log(details,'se')
-
     const [count, setCount] = useState(0)
 
     const Increase = () => {
@@ -14,6 +13,16 @@ const Sea = (props) => {
         if (count > 1) {
             setCount(count => count - 1)
         }
+    }
+
+    const addCart = () => {
+        if (count >= 1) {
+            addToCart(count)
+        }
+    }
+
+    const AddOrders = () => {
+        myOrders(details, count)
     }
     return (
         <div className='food-card'>
@@ -29,6 +38,7 @@ const Sea = (props) => {
                         <button onClick={decrease}>-</button>
                     </div>
                     {details?.dish_Availability ? (<p> </p>) : (<p className='err'>Not Available</p>)}
+                    {details?.dish_Availability ? <button onClick={() => (addCart(), AddOrders())} className='add-btn'>Add to Cart</button> : ''}
                 </div>
             </div>
             <div className='card-2'>
